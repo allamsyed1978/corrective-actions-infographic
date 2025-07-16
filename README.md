@@ -1,4 +1,4 @@
-# 📊 Corrective Actions – Data Driven Decisions
+# Corrective Actions – Data Driven Decisions
 
 Transform how top management views and drives operational improvements using this interactive, data-powered infographic dashboard.
 
@@ -6,7 +6,7 @@ Transform how top management views and drives operational improvements using thi
 
 ---
 
-## 🔍 Overview
+## Overview
 
 This project provides an **interactive HTML infographic tool** designed for operational and executive leaders to:
 
@@ -19,18 +19,18 @@ It combines **data visualization** and **action tracking** in one beautiful, bro
 
 ---
 
-## 💡 Features
+## Features
 
-- ✅ Responsive, clean design using **Tailwind CSS**
-- 📊 5 types of dynamic **Chart.js visualizations**
-- 🧾 Editable **Corrective Action Tracker** table
-- ⬇️ **Excel Export** using SheetJS
-- 🖼️ **Downloadable charts** as PNG
-- 🌙 Full support for **Dark Mode**
+- Responsive, clean design using **Tailwind CSS**
+- 5 types of dynamic **Chart.js visualizations**
+- Editable **Corrective Action Tracker** table
+- **Excel Export** using SheetJS
+- **Downloadable charts** as PNG
+- Full support for **Dark Mode**
 
 ---
 
-## 📁 Files Included
+## Files Included
 
 | File | Description |
 |------|-------------|
@@ -39,16 +39,16 @@ It combines **data visualization** and **action tracking** in one beautiful, bro
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### ✅ Quick View in Browser
+### Quick View in Browser
 
 1. Open `final_corrective_actions_infographic.html` in any modern browser (Chrome, Firefox, Safari, Edge)
 2. No setup or installation needed
 
 ---
 
-### 🖥️ Hosting with GitHub Pages
+### Hosting with GitHub Pages
 
 1. Create a new GitHub repository
 2. Upload the HTML file
@@ -60,17 +60,17 @@ It combines **data visualization** and **action tracking** in one beautiful, bro
 5. 
 ---
 
-## 📤 Export & Interaction Guide
+## Export & Interaction Guide
 
 | Feature | How-To |
 |--------|--------|
-| ✍️ Edit CA Data | Scroll to “Data Input Sheet” and modify table directly |
-| ⬇️ Export Excel | Click “Export to Excel” button above table |
-| 🖼️ Download Chart | Click “Download PNG” under any chart section |
+| Edit CA Data | Scroll to “Data Input Sheet” and modify table directly |
+| Export Excel | Click “Export to Excel” button above table |
+| Download Chart | Click “Download PNG” under any chart section |
 
 ---
 
-## 📌 Tech Stack
+## Tech Stack
 
 - HTML5 + Tailwind CSS
 - Chart.js for graphs
@@ -79,7 +79,7 @@ It combines **data visualization** and **action tracking** in one beautiful, bro
 
 ---
 
-## 🧩 Future Enhancements (Suggestions)
+## Future Enhancements (Suggestions)
 
 - Upload CSV to populate table
 - Add comment fields to each CA
@@ -88,13 +88,13 @@ It combines **data visualization** and **action tracking** in one beautiful, bro
 
 ---
 
-## 🛡️ License
+## License
 
 This project is licensed under the **MIT License**.
 
 ---
 
-## 🤝 Contribute / Feedback
+## Contribute / Feedback
 
 Have ideas or improvements?  
 Open an issue or PR — contributions are welcome!
