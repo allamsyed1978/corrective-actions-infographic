@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Corrective Actions – Dynamic Charts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="p-6 bg-gray-50">
+  <h1 class="text-3xl font-bold mb-4">📊 Corrective Actions Dashboard</h1>
+
+  <div class="flex justify-between items-center mb-4">
+    <input type="file" id="excelUpload" accept=".xlsx,.xls" class="border px-3 py-1 rounded" />
+    <button onclick="exportTableToExcel()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Export to Excel</button>
+  </div>
+
+  <div class="overflow-x-auto mb-6">
+    <table id="caDataTable" class="min-w-full bg-white text-sm">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Issue Description</th>
+          <th>Root Cause</th>
+          <th>CA Action Taken</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Owner</th>
+          <th>Due Date</th>
+          <th>Completion %</th>
+          <th>Impact Area</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CA-001</td>
+          <td>Late Monthly Report</td>
+          <td>Manual data entry</td>
+          <td>Automate reporting</td>
+          <td>Process</td>
+          <td>In Progress</td>
+          <td>J. Smith</td>
+          <td>2025-08-01</td>
+          <td>60%</td>
+          <td>Efficiency</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="text-xl font-semibold text-center mb-2">Live Data Chart</h2>
+  <canvas id="caLiveChart" height="600" width="450" style="display: block; box-sizing: border-box; height: 600px; width: 450px;"></canvas>
+  <button onclick="downloadChart('caLiveChart', 'Corrective_Action_Chart')" class="block mx-auto mt-2 bg-gray-700 text-white px-4 py-2 rounded">Download PNG</button>
+
+  <script>
+    let chartRef;
+
+    function renderChart(dataMap) {
+      const ctx = document.getElementById('caLiveChart').getContext('2d');
+      const labels = Object.keys(dataMap);
+      const data = Object.values(dataMap);
+
+      if (chartRef) chartRef.destroy();
+
+      chartRef = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Corrective Actions by Impact Area',
+            data: data,
+            backgroundColor: ['#003f5c', '#bc5090', '#ffa600', '#58508d', '#2f4b7c'],
+            borderRadius: 5
+          }]
+        },
+        options: {
+          responsive: false,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: true, title: { display: true, text: 'Count' } }
+          }
+        }
+      });
+    }
+
+    document.getElementById('excelUpload').addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const json = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+        const tbody = document.querySelector("#caDataTable tbody");
+        tbody.innerHTML = "";
+
+        const headers = json[0];
+        const impactAreaIdx = headers.indexOf("Impact Area");
+        let impactCount = {};
+
+        json.slice(1).forEach(row => {
+          if (row.length === 0) return;
+          const tr = document.createElement("tr");
+          row.forEach(cell => {
+            const td = document.createElement("td");
+            td.textContent = cell ?? "";
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+
+          const impact = row[impactAreaIdx];
+          if (impact) {
+            impactCount[impact] = (impactCount[impact] || 0) + 1;
+          }
+        });
+
+        renderChart(impactCount);
+        alert("✅ Excel file loaded!");
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
+
+    function exportTableToExcel() {
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.table_to_sheet(document.getElementById('caDataTable'));
+      XLSX.utils.book_append_sheet(wb, ws, 'CorrectiveActions');
+      XLSX.writeFile(wb, 'Corrective_Actions_Data.xlsx');
+    }
+
+    function downloadChart(canvasId, filename) {
+      const canvas = document.getElementById(canvasId);
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/png');
+      link.download = filename + '.png';
+      link.click();
+    }
+  </script>
+</body>
+</html>
